@@ -1,4 +1,4 @@
-import sys, os, time
+import sys, os
 
 # Check Arguments
 def checkArg(argv):
