@@ -109,6 +109,7 @@ def main():
     root.add_resource(('time',), TimeResource())
 
     root.add_resource(('other', 'block'), BlockResource())
+    root.add_resource(('temp', 'client1'), BlockResource())
 
     root.add_resource(('other', 'separate'), SeparateLargeResource())
 

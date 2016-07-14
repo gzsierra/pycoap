@@ -19,7 +19,4 @@ def checkArg(argv):
 # Read file line by line and split
 def readFile(file):
     f = open(file,"r")
-    for line in f:
-        split = line.split()
-
-    return split
+    return f

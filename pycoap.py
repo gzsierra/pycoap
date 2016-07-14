@@ -1,29 +1,12 @@
-import logging, asyncio, pyRead, sys
+import pyRead, sys, coapSender, asyncio
 
-from aiocoap import *
+# Check File
+pyRead.checkArg(sys.argv)
+# Read File
+file = pyRead.readFile(sys.argv[1])
 
-logging.basicConfig(level=logging.INFO)
-
-@asyncio.coroutine
-def main():
-
-    # Check File
-    pyRead.checkArg(sys.argv)
-    # Read File
-    pyRead.readFile(sys.argv[1])
-
-    protocol = yield from Context.create_client_context()
-
-    request = Message(code=GET)
-    request.set_request_uri('coap://localhost/time')
-
-    try:
-        response = yield from protocol.request(request).response
-    except Exception as e:
-        print('Failed to fetch resource:')
-        print(e)
-    else:
-        print('Result: %s\n%r'%(response.code, response.payload))
-
-if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(main())
+# Send each line to the server
+for line in file:
+    split = line.split()
+    # Make sure we wait until msg is send to server
+    asyncio.get_event_loop().run_until_complete(coapSender.send(split[0], split[1]))
