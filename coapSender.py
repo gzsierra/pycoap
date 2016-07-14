@@ -14,7 +14,7 @@ def send(time, value):
 
     payload = (time +","+ value).encode()
     request = Message(code=PUT, payload=payload)
-    request.opt.uri_host = '127.0.0.1'
+    request.opt.uri_host = '192.168.1.72'
     request.opt.uri_path = ("temp", "client1")
 
     response = yield from context.request(request).response
